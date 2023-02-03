@@ -11,7 +11,13 @@ ASMagicProjectile::ASMagicProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 
 	SphereComp = CreateDefaultSubobject<USphereComponent>("SphereComp");	//making instances of every component to attach
-	RootComponent = SphereComp;
+
+	//SphereComp->SetCollisionObjectType(ECC_WorldDynamic);					//setting the colision preset and  the ticks manually in cpp
+	//SphereComp->SetCollisionResponseToAllChannels(ECR_Ignore);				//can set them up in dividual settings like this or in project settings ->collission
+	//SphereComp->SetCollisionResponseToAllChannel(ECC_Pawn, ECR_Overlap);		//and connect it using the "Projectile" code below v, that is better
+
+	SphereComp->SetCollisionProfileName("Projectile");		//adding collision preset instead of the set given since they have too much tick boxes to overlap collision hierchy.;
+	RootComponent = SphereComp;								//this will be default
 
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 	EffectComp->SetupAttachment(SphereComp);

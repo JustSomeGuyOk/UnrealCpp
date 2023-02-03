@@ -50,6 +50,9 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);  //Yaw is horizontal, Pitch is vertical rotation (like airplane?)
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+
+	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);	//input trigger for attack
+
 }
 
 void ASCharacter::MoveForward(float Value)
@@ -75,4 +78,14 @@ void ASCharacter::MoveRight(float Value)
 
 	AddMovementInput(RightVector, Value);
 }
+
+void ASCharacter::PrimaryAttack()
+{
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");		//you can add sockets in unreal too
+	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);	//where the control is looking at, where in the actor to attach
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn; //specifying spawn rules;
+
+	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams); //spawning is always done though GetWorld
+}																		   // spawn TM is just xyz transform matrix, these params just hold the general structure for the attack.
 

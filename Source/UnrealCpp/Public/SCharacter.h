@@ -19,6 +19,11 @@ public:
 	ASCharacter();
 
 protected:
+	UPROPERTY(EditAnywhere)					//to make it visible in the editor under your player character bp
+	TSubclassOf<AActor> ProjectileClass;	//magic projectile derives from actor hence subclass
+
+
+protected:
 
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
@@ -31,6 +36,7 @@ protected:
 
 	void MoveForward(float Value);
 	void MoveRight(float Value);
+	void PrimaryAttack();	//no relevant value needed, just needs to trigger
 
 public:	
 	// Called every frame
