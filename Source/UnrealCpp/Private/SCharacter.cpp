@@ -4,7 +4,9 @@
 #include "SCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "DrawDebugHelpers.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "SInteractionComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -23,6 +25,10 @@ ASCharacter::ASCharacter()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	bUseControllerRotationYaw = false;	//booleans start with b, coding standard
+
+	InteractionComp = CreateDefaultSubobject<USInteractionComponent>("InteractionComp");
+
+
 }
 
 // Called when the game starts or when spawned
@@ -52,7 +58,7 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);	//input trigger for attack
-
+	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &ASCharacter::PrimaryInteract);	//input trigger for attack
 }
 
 void ASCharacter::MoveForward(float Value)
@@ -87,5 +93,13 @@ void ASCharacter::PrimaryAttack()
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn; //specifying spawn rules;
 
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams); //spawning is always done though GetWorld
-}																		   // spawn TM is just xyz transform matrix, these params just hold the general structure for the attack.
+}								
+										   // spawn TM is just xyz transform matrix, these params just hold the general structure for the attack.
 
+void ASCharacter::PrimaryInteract()
+{
+	if (InteractionComp) 
+	{
+		InteractionComp->PrimaryInteract();
+	}
+}
