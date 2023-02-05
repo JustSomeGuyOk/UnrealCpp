@@ -10,6 +10,7 @@
 class USpringArmComponent;
 class UCameraComponent;
 class InteractionComp;
+class UAnimMontage;
 
 UCLASS()
 class UNREALCPP_API ASCharacter : public ACharacter
@@ -21,8 +22,13 @@ public:
 	ASCharacter();
 
 protected:
-	UPROPERTY(EditAnywhere)					//to make it visible in the editor under your player character bp
+	UPROPERTY(EditAnywhere, Category = "Attack")					//to make it visible in the editor under your player character bp
 	TSubclassOf<AActor> ProjectileClass;	//magic projectile derives from actor hence subclass
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	UAnimMontage* AttackAnim;
+
+	FTimerHandle TimerHandle_PrimaryAttack;	
 
 
 protected:
@@ -42,6 +48,7 @@ protected:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void PrimaryAttack();	//no relevant value needed, just needs to trigger
+	void PrimaryAttack_TimerElapsed();
 	void PrimaryInteract();
 
 public:	

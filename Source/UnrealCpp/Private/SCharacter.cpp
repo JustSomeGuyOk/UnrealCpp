@@ -87,13 +87,20 @@ void ASCharacter::MoveRight(float Value)
 
 void ASCharacter::PrimaryAttack()
 {
+	PlayAnimMontage(AttackAnim);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::PrimaryAttack_TimerElapsed, 0.2f);
+	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack); //clear anim if died instead of finishing anim	
+}
+void ASCharacter::PrimaryAttack_TimerElapsed()
+{
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");		//you can add sockets in unreal too
 	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);	//where the control is looking at, where in the actor to attach
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn; //specifying spawn rules;
 
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams); //spawning is always done though GetWorld
-}								
+}
 										   // spawn TM is just xyz transform matrix, these params just hold the general structure for the attack.
 
 void ASCharacter::PrimaryInteract()
