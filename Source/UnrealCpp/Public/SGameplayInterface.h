@@ -24,6 +24,6 @@ class UNREALCPP_API ISGameplayInterface
 
 public:
 
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)	//be able to call in blueprint
 	void Interact(APawn* InstigatorPawn);	//knows which actor triggered the potion/item.
 };	
