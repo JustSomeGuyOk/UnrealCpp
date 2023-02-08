@@ -19,13 +19,13 @@ public:
 	ASMagicProjectile();
 
 protected:
-	UPROPERTY(VisibleAnywhere)	//basic collision component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)	//basic collision component
 		USphereComponent* SphereComp;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		UProjectileMovementComponent* MovementComp;	//velocity
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		UParticleSystemComponent* EffectComp;
 
 	//Called when the game starts or when spawned
