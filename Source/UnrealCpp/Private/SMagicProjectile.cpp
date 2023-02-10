@@ -4,6 +4,7 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "SAttributeComponent.h"
 
 ASMagicProjectile::ASMagicProjectile()
 {
@@ -17,6 +18,7 @@ ASMagicProjectile::ASMagicProjectile()
 	//SphereComp->SetCollisionResponseToAllChannel(ECC_Pawn, ECR_Overlap);		//and connect it using the "Projectile" code below v, that is better
 
 	SphereComp->SetCollisionProfileName("Projectile");		//adding collision preset instead of the set given since they have too much tick boxes to overlap collision hierchy.;
+	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &ASMagicProjectile::OnActorOverlap);
 	RootComponent = SphereComp;								//this will be default
 
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
@@ -27,6 +29,19 @@ ASMagicProjectile::ASMagicProjectile()
 	MovementComp->bRotationFollowsVelocity = true;
 	MovementComp->bInitialVelocityInLocalSpace = true;
 
+}
+
+void ASMagicProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor)
+	{
+		USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
+		if (AttributeComp)
+		{
+			AttributeComp->ApplyHealthChange(-20.0f);
+			Destroy();
+		}
+	}
 }
 
 //Called when the game starts or when spawend

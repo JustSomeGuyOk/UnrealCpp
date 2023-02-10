@@ -7,6 +7,7 @@
 #include "DrawDebugHelpers.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "SInteractionComponent.h"
+#include "SAttributeComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -28,6 +29,8 @@ ASCharacter::ASCharacter()
 
 	InteractionComp = CreateDefaultSubobject<USInteractionComponent>("InteractionComp");
 
+	AttributeComp = CreateDefaultSubobject<USAttributeComponent>("AttributeComp");
+	// create class, add variables, add functions for variables, add in header, attach to character.
 
 }
 
@@ -94,16 +97,16 @@ void ASCharacter::PrimaryAttack()
 }
 void ASCharacter::PrimaryAttack_TimerElapsed()
 {
-	if (ensureAlways(PrimaryAttack))	// ensure checks if true or false but false throws exception exactly at this point if this goes wrong. 
-	{									// ensureAlways however always triggers this if false, while only ensure triggers and then ignores when recompiled again.
-		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");		//you can add sockets in unreal too
-		FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);	//where the control is looking at, where in the actor to attach
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn; //specifying spawn rules;
-		SpawnParams.Instigator = this;
+	/*ensure checks if true or false but false throws exception exactly at this point if this goes wrong.
+	 ensureAlways however always triggers this if false, while only ensure triggers and then ignores when recompiled again.*/
 
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams); //spawning is always done though GetWorld
-	}
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");		//you can add sockets in unreal too
+	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);	//where the control is looking at, where in the actor to attach
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn; //specifying spawn rules;
+	SpawnParams.Instigator = this;
+
+	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams); //spawning is always done though GetWorld
 }
 										   // spawn TM is just xyz transform matrix, these params just hold the general structure for the attack.
 
