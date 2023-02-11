@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "SAttributeComponent.generated.h"
 
+// event, actor object type with variable, attribute type with its variable, float value for new health, float value pass to delete or whatever
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHealthChanged, AActor*, InstigatorActor, USAttributeComponent*, OwningComp, float, NewHealth, float, Delta)
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UNREALCPP_API USAttributeComponent : public UActorComponent
@@ -34,6 +36,9 @@ protected:
 	float Health;
 
 public:	
+
+	UPROPERTY(BlueprintAssignable)
+	FOnHealthChanged OnHealthChanged;
 
 	UFUNCTION(BluePrintCallable, Category = "Attributes")
 	bool ApplyHealthChange(float Delta);		
