@@ -25,12 +25,16 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "Attack")					//to make it visible in the editor under your player character bp
-	TSubclassOf<AActor> ProjectileClass;	//magic projectile derives from actor hence subclass
+	TSubclassOf<AActor> ProjectileClass;							//magic projectile derives from actor hence subclass
+	TSubclassOf<AActor> DashProjectileClass;
+	TSubclassOf<AActor> BlackHoleProjectileClass;
 
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	UAnimMontage* AttackAnim;
 
 	FTimerHandle TimerHandle_PrimaryAttack;	
+	FTimerHandle TimerHandle_BlackHoleAttack;
+	FTimerHandle TimerHandle_Dash;
 
 
 protected:
@@ -55,6 +59,15 @@ protected:
 	void PrimaryAttack();	//no relevant value needed, just needs to trigger
 	void PrimaryAttack_TimerElapsed();
 	void PrimaryInteract();
+	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
+	//void SpawnProjectile();
+	void BlackHoleAttack();
+	void BlackHoleAttack_TimeElapsed();
+	void Dash();
+	void Dash_TimeElapsed();
+	float AttackAnimDelay;
+
+
 
 public:	
 	// Called every frame

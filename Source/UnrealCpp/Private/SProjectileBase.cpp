@@ -42,11 +42,9 @@ void ASProjectileBase::Explode_Implementation()
 	}
 }
 
-/*
 void ASProjectileBase::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	//SphereComp->IgnoreActorWhenMoving(GetInstigator(), true);
 }
-*/
 
