@@ -67,7 +67,10 @@ protected:
 	void Dash_TimeElapsed();
 	float AttackAnimDelay;
 
+	UFUNCTION()
+	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta);
 
+	virtual void PostInitializeComponents() override;
 
 public:	
 	// Called every frame

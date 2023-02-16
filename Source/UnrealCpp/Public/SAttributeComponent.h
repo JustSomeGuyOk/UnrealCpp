@@ -37,6 +37,9 @@ protected:
 
 public:	
 
+	UFUNCTION(BluePrintCallable)
+	bool IsAlive() const;
+
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;
 
