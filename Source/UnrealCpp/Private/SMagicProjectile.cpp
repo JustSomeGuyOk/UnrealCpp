@@ -6,6 +6,8 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "SAttributeComponent.h"
 
+
+//Not working for others.
 ASMagicProjectile::ASMagicProjectile()
 {
 	//Set this actor to call Tick() every frame. You can turn this off to improve performance if you don't need it.
