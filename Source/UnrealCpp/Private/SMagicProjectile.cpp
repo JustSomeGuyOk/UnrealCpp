@@ -7,7 +7,7 @@
 #include "SAttributeComponent.h"
 
 
-//Not working for others.
+//Not working for others. Also projectile is not properly aimed. Multiple UI?
 ASMagicProjectile::ASMagicProjectile()
 {
 	//Set this actor to call Tick() every frame. You can turn this off to improve performance if you don't need it.
