@@ -7,7 +7,7 @@
 #include "SAttributeComponent.h"
 
 
-//Not working for others. Also projectile is not properly aimed. Multiple UI?
+//Not working for others. Also projectile is not properly aimed. Multiple UI? Is not Proj file either compared to dash and galaxy.
 ASMagicProjectile::ASMagicProjectile()
 {
 	//Set this actor to call Tick() every frame. You can turn this off to improve performance if you don't need it.
