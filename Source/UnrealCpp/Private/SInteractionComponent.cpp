@@ -5,6 +5,8 @@
 #include "SGameplayInterface.h"
 
 
+// lever doesn't work
+
 // Sets default values for this component's properties
 USInteractionComponent::USInteractionComponent()
 {
