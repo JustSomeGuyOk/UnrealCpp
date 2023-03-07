@@ -6,6 +6,10 @@
 #include "GameFramework/Character.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
+
+
+
+
 EBTNodeResult::Type USBTTask_RangedAttack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AAIController* MyController = OwnerComp.GetAIOwner();
@@ -35,7 +39,6 @@ EBTNodeResult::Type USBTTask_RangedAttack::ExecuteTask(UBehaviorTreeComponent& O
 
 		return NewProj ? EBTNodeResult::Succeeded : EBTNodeResult::Failed;
 	}
-
 
 	return EBTNodeResult::Failed;
 }
