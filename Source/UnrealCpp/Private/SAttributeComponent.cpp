@@ -17,8 +17,8 @@ bool USAttributeComponent::IsAlive() const
 
 bool USAttributeComponent::ApplyHealthChange(float Delta)
 {
-    OnHealthChanged.Broadcast(nullptr, this, Health, Delta);
-
     Health += Delta;
-    return false;
+    OnHealthChanged.Broadcast(nullptr, this, Health, Delta);
+    
+    return true;
 }
